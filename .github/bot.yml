@@ -1,0 +1,32 @@
+name:  WhatsApp Bot 
+
+on:
+  push:
+    branches:
+      - main # Jalankan setiap kali ada perubahan di branch `main`
+  workflow_dispatch: # Jalankan secara manual melalui GitHub UI
+
+jobs:
+  run-bot:
+    runs-on: windows-latest # Menggunakan runner Windows
+
+    steps:
+      # 1. Checkout kode dari repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Setup Node.js untuk Windows
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18 # Versi Node.js yang digunakan
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: |
+          npm install
+
+      # 4. Jalankan bot
+      - name: Start bot
+        run: |
+          node index.js
